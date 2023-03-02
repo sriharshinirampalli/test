@@ -10,15 +10,13 @@ on:
 jobs:
  extract_email:
    runs-on: ubuntu-latest
-   env:
-      GITHUB_EVENT_PATH: ${{ github.event_path }}
+   
    steps:
          - uses: actions/checkout@v3
 
          - name: Extract email from changed files
            run: |
             # Get the pull request diff URL from the issue payload'
-            echo "GITHUB_EVENT_PATH=$GITHUB_EVENT_PATH"
             pr_number=$(jq -r '.issue.pull_request.number' $GITHUB_EVENT_PATH)
 
             diff_url=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
