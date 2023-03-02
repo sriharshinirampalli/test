@@ -3,11 +3,13 @@
 name: CI
 
 # Controls when the workflow will run
-on: [push]
+on: [issues]
  
 jobs:
  extract_email:
    runs-on: ubuntu-latest
+   env:
+      GITHUB_EVENT_PATH: ${{ github.event_path }}
    steps:
          - uses: actions/checkout@v3
 
