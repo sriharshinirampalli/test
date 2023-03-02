@@ -19,12 +19,4 @@ jobs:
             # Get the pull request diff URL from the issue payload'
             pr_number=$(jq -r '.issue.pull_request.number' $GITHUB_EVENT_PATH)
 
-            diff_url=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/pulls/$pr_number.diff" \
-            | awk 'NR==1{print $1}')
-
-            # Download the diff and extract the added lines with email headers
-            added_lines=$(curl -sSL "$diff_url" | awk '/^+.*email:/i' | awk '{print $2}')
-
-            # Print the email values to the console
-            echo "$added_lines"
+            
